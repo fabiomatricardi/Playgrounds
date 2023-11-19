@@ -1,0 +1,36 @@
+ZZ_ZephyrPG python3.10 -m venv venv
+
+source venv/bin/activate
+
+Pip install transformers
+Pip install gradio
+
+Using https://huggingface.co/TheBloke/openchat_3.5-16k-GGUF/tree/main
+Openchat 3.5 16K context - GGUF
+
+Prompt template: OpenChat
+GPT4 User: {prompt}<|end_of_turn|>GPT4 Assistant:
+
+---
+from ctransformers import AutoModelForCausalLM
+
+# Set gpu_layers to the number of layers to offload to GPU. Set to 0 if no GPU acceleration is available on your system.
+llm = AutoModelForCausalLM.from_pretrained("TheBloke/openchat_3.5-16k-GGUF", model_file="openchat_3.5-16k.Q4_K_M.gguf", model_type="mistral", gpu_layers=50)
+
+print(llm("AI is going to"))
+---
+
+
+
+https://huggingface.co/TheBloke/vicuna-7B-v1.5-16K-GGUF
+
+Prompt template: Vicuna
+A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {prompt} ASSISTANT:
+
+---
+from ctransformers import AutoModelForCausalLM
+
+# Set gpu_layers to the number of layers to offload to GPU. Set to 0 if no GPU acceleration is available on your system.
+llm = AutoModelForCausalLM.from_pretrained("TheBloke/vicuna-7B-v1.5-16K-GGUF", model_file="vicuna-7b-v1.5-16k.q4_K_M.gguf", model_type="llama", gpu_layers=50)
+
+print(llm("AI is going to"))
